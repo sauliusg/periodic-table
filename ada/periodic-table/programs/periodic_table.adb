@@ -166,6 +166,11 @@ procedure Periodic_Table is
    procedure Select_Atom_Position_Folded ( AN : in Integer;
                                            X, Y, Z : out Long_Float ) is
       Row_Length : constant Integer := 8;
+      Lantanoid_Shift : constant Integer := 1;
+      Transition_Shift : constant Integer := 10;
+      Main_Shift : constant Integer := 5;
+      
+      Total_Shift : Integer;
    begin
       
       Z := 0.0;
@@ -173,10 +178,20 @@ procedure Periodic_Table is
       if AN = 1 then
          X := Delta_X; Y := -Delta_Y;         
       elsif AN = 2 then
-         X := Long_Float (Row_Length) * Delta_X; Y := -Delta_Y;
-      else
-         X := Long_Float (((AN - 3) mod Row_Length) + 1) * Delta_X;
+         Total_Shift := Lantanoid_Shift + Transition_Shift + Main_Shift;
+         X := Long_Float (Total_Shift) * Delta_X; Y := -Delta_Y;
+      elsif AN in 3..18 then
+         Total_Shift := Lantanoid_Shift + Transition_Shift - 2;
+         if (AN - 3) mod Row_Length = 0 or else 
+           (AN - 3) mod Row_Length = 1 then
+            X := Delta_X;
+         else
+            X := Long_Float ((AN - 3) mod Row_Length + Total_Shift) * Delta_X;
+         end if;
          Y := Long_Float ((AN - 3) / Row_Length) * Delta_Y;
+      else
+         X := Long_Float (((AN - 19) mod Row_Length) + 1) * Delta_X;
+         Y := Long_Float ((AN - 19) / Row_Length + 2) * Delta_Y;
       end if;
    end;
    
