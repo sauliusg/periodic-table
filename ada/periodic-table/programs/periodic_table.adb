@@ -135,8 +135,8 @@ procedure Periodic_Table is
    
    X, Y, Z : Long_Float;
    
-   Delta_X : Long_Float := 6.0; -- In Angstroems
-   Delta_Y : Long_Float := 6.0; -- In Angstroems
+   Delta_X : Long_Float := 8.0; -- In Angstroems
+   Delta_Y : Long_Float := 8.0; -- In Angstroems
    
    procedure Put_Atom_Position ( AN : Integer; X, Y, Z : Long_Float ) is
    begin
