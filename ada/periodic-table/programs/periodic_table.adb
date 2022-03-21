@@ -144,6 +144,14 @@ procedure Periodic_Table is
       Put_Float (Z);
    end;
    
+   procedure Select_Atom_Position_Linear ( AN : in Integer;
+                                           X, Y, Z : out Long_Float ) is
+   begin
+      X := Long_Float (AN) * Delta_X;
+      Y := 0.0;
+      Z := 0.0;
+   end;
+   
 begin
    
    Process_Options;
@@ -163,14 +171,10 @@ begin
    New_Line;
    
    -- AN -- Atomic Number
-   Z := 0.0;
-   Y := 0.0;
    for AN in 1..Display_Atoms loop
       
-      X := Long_Float (AN) * Delta_X;
-      
+      Select_Atom_Position_Linear (AN, X, Y, Z);      
       Put_Atom_Position (AN, X, Y, Z);
-      
       New_Line;
       
    end loop;
