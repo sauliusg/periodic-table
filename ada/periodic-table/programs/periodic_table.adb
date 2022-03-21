@@ -161,7 +161,6 @@ procedure Periodic_Table is
          Put ((4 - AN'Image'Last) * " "); -- Pad with spaces on the right.
       end if;
       
-      Put (" ");
       Put_Float (X);
       
       Put (" ");
