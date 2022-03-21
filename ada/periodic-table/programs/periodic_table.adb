@@ -126,6 +126,14 @@ begin
    
    Process_Options;
    
+   declare
+      Argument : String := Get_Argument;
+   begin
+      if Argument /= "" then
+         Max_Atoms := Integer'Value (Argument);
+      end if;
+   end;
+   
    Put (Max_Atoms, Width => 1);
    New_Line;
    Put ("Mendeleev's Periodic Table of Elements / ");
