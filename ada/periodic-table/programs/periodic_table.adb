@@ -54,6 +54,9 @@ procedure Periodic_Table is
       P("        the integer part length, the fraction part length and the exponent length.");
       P("        Specifying exponent part as 0 outputs no exponent at all (as with C '%f' format).");
       New_Line;
+      P("    --linear                        Display all atoms in one line.");
+      P("    --folded                        Display atoms in a folded, tabular for (default).");
+      New_Line;
       P("    -H, --human-readable            Use format 8,6,0 for better human readability");
       P("    -M, --machine-readable          Use format 2,14,3 to maintain precision");
       New_Line;
