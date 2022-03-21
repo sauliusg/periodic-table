@@ -244,9 +244,9 @@ procedure Periodic_Table is
          end if;
    
       else
-         Row_Length := Period_4_5_Row_Length;
-         X := Long_Float (((AN - 118) mod Row_Length) + 1) * Delta_X;
-         Y := Long_Float ((AN - 118) / Row_Length + 5) * Delta_Y;
+         Row_Length := Period_4_5_Row_Length + Lantanoid_Shift;
+         X := Long_Float (((AN - 119) mod Row_Length) + 1) * Delta_X;
+         Y := Long_Float ((AN - 119) / Row_Length + 6) * Delta_Y;
       end if;
    end;
    
