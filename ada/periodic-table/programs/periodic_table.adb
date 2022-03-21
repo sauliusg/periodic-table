@@ -98,9 +98,10 @@ procedure Periodic_Table is
                   Fraction_Size := 14;
                   Exponent_Size := 3;
                elsif Index("-version", Full_Switch) = 1 then
-                  Put_Line (Command_Name & " " 
-                              & Program_Id (2..Program_Id'Last-1)
-                              & Program_URL (2..Program_URL'Last-1) );
+                  Put_Line (Command_Name & " " & 
+                              Program_Id (2..Program_Id'Last-1));
+                  Put_Line (Command_Name & " " & 
+                              Program_URL (2..Program_URL'Last-1));
                   raise VERSION_PRINTED;
                end if;
             when others =>
