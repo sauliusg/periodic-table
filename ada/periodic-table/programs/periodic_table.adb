@@ -27,6 +27,8 @@ procedure Periodic_Table is
    HELP_PRINTED : exception;
    VERSION_PRINTED : exception;
    
+   Max_Atoms : Integer := 118; -- The number of chemical elements know to-date.
+   
    procedure Print_Help is
       procedure P( S : String ) renames Put_Line;
    begin
@@ -110,10 +112,48 @@ procedure Periodic_Table is
       end loop;   
    end Process_Options;
    
+   procedure Put_Float ( X : Long_Float ) is
+   begin
+      Put (X, Integer_Size, Fraction_Size, Exponent_Size);
+   end;
+   
+   X, Y, Z : Long_Float;
+   
+   Delta_X : Long_Float := 4.0; -- In Angstroems
+   Delta_Y : Long_Float := 4.0; -- In Angstroems
+   
 begin
    
    Process_Options;
    
+   Put (Max_Atoms, Width => 1);
+   New_Line;
+   Put ("Mendeleev's Periodic Table of Elements / ");
+   Put ("Периодическая таблица Менделеева");
+   New_Line;
+   
+   -- AN -- Atomic Number
+   Z := 0.0;
+   Y := 0.0;
+   for AN in 1..Max_Atoms loop
+      
+      Put (AN, Width => 1);
+      if AN'Image'Last < 3 then
+         Put ((3 - AN'Image'Last) * " "); -- Pad with spaces on the right.
+      end if;
+      X := Long_Float (AN) * Delta_X;
+      
+      Put (" ");
+      Put_Float (X);
+      
+      Put (" ");
+      Put_Float (Y);
+      
+      Put (" ");
+      Put_Float (Z);
+      New_Line;
+      
+   end loop;
    
 exception
    when HELP_PRINTED => null;
