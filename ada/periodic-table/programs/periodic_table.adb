@@ -267,7 +267,7 @@ begin
          Select_Atom_Position_Folded (AN, X, Y, Z);
       end if;
       
-      Put_Atom_Position (AN, X, Y, Z);
+      Put_Atom_Position (AN, X, -Y, -Z);
       New_Line;
       
    end loop;
