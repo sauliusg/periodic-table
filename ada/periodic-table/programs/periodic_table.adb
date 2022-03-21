@@ -175,8 +175,8 @@ procedure Periodic_Table is
       elsif AN = 2 then
          X := Long_Float (Row_Length) * Delta_X; Y := -Delta_Y;
       else
-         X := Long_Float (((AN - 1) mod Row_Length) + 1) * Delta_X;
-         Y := Long_Float ((AN - 1) / Row_Length) * Delta_Y;
+         X := Long_Float (((AN - 3) mod Row_Length) + 1) * Delta_X;
+         Y := Long_Float ((AN - 3) / Row_Length) * Delta_Y;
       end if;
    end;
    
