@@ -1,4 +1,4 @@
-# 2022-03-21 17:14:00 EET
+# 2022-03-21 17:30:26 EET
 tests/outputs/periodic_table_001.diff: bin/periodic_table
 tests/outputs/periodic_table_002.diff: bin/periodic_table
 tests/outputs/periodic_table_003.diff: bin/periodic_table
@@ -9,3 +9,8 @@ tests/outputs/periodic_table_007.diff: bin/periodic_table
 tests/outputs/periodic_table_008.diff: bin/periodic_table
 tests/outputs/periodic_table_009.diff: bin/periodic_table
 tests/outputs/periodic_table_010.diff: bin/periodic_table
+tests/outputs/periodic_table_011.diff: bin/periodic_table
+tests/outputs/periodic_table_012.diff: bin/periodic_table
+tests/outputs/periodic_table_013.diff: bin/periodic_table
+tests/outputs/periodic_table_014.diff: bin/periodic_table
+tests/outputs/periodic_table_015.diff: bin/periodic_table
