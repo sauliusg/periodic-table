@@ -167,9 +167,17 @@ procedure Periodic_Table is
                                            X, Y, Z : out Long_Float ) is
       Row_Length : constant Integer := 8;
    begin
-      X := Long_Float (((AN - 1) mod Row_Length) + 1) * Delta_X;
-      Y := Long_Float ((AN - 1) / Row_Length) * Delta_Y;
+      
       Z := 0.0;
+      
+      if AN = 1 then
+         X := Delta_X; Y := -Delta_Y;         
+      elsif AN = 2 then
+         X := Long_Float (Row_Length) * Delta_X; Y := -Delta_Y;
+      else
+         X := Long_Float (((AN - 1) mod Row_Length) + 1) * Delta_X;
+         Y := Long_Float ((AN - 1) / Row_Length) * Delta_Y;
+      end if;
    end;
    
 begin
