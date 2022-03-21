@@ -148,8 +148,6 @@ procedure Periodic_Table is
       Put (X, Integer_Size, Fraction_Size, Exponent_Size);
    end;
    
-   X, Y, Z : Long_Float;
-   
    Delta_X : Long_Float := 8.0; -- In Angstroems
    Delta_Y : Long_Float := 8.0; -- In Angstroems
    Delta_Z : Long_Float := 8.0; -- In Angstroems
@@ -271,17 +269,21 @@ begin
    -- AN -- Atomic Number
    for AN in 1..Display_Atoms loop
       
-      if Display_Table_Linear then
-         Select_Atom_Position_Linear (AN, X, Y, Z);
-      else
-         Select_Atom_Position_Folded (AN, X, Y, Z);
-      end if;
-      
-      if Rotate then
-         Put_Atom_Position (AN, X, Y, Z);
-      else
-         Put_Atom_Position (AN, X, -Y, -Z);
-      end if;
+      declare
+         X, Y, Z : Long_Float;
+      begin
+         if Display_Table_Linear then
+            Select_Atom_Position_Linear (AN, X, Y, Z);
+         else
+            Select_Atom_Position_Folded (AN, X, Y, Z);
+         end if;
+         
+         if Rotate then
+            Put_Atom_Position (AN, X, Y, Z);
+         else
+            Put_Atom_Position (AN, X, -Y, -Z);
+         end if;
+      end;
       
       New_Line;
       
