@@ -34,6 +34,8 @@ procedure Periodic_Table is
    --  from what JMol can currently display:
    Display_Atoms : Integer := 109;
    
+   Display_Table_Linear : Boolean := False;
+   
    procedure Print_Help is
       procedure P( S : String ) renames Put_Line;
    begin
@@ -152,6 +154,14 @@ procedure Periodic_Table is
       Z := 0.0;
    end;
    
+   procedure Select_Atom_Position_Folded ( AN : in Integer;
+                                           X, Y, Z : out Long_Float ) is
+   begin
+      X := Long_Float (AN) * Delta_X;
+      Y := 0.0;
+      Z := 0.0;
+   end;
+   
 begin
    
    Process_Options;
@@ -173,7 +183,12 @@ begin
    -- AN -- Atomic Number
    for AN in 1..Display_Atoms loop
       
-      Select_Atom_Position_Linear (AN, X, Y, Z);      
+      if Display_Table_Linear then
+         Select_Atom_Position_Linear (AN, X, Y, Z);
+      else
+         Select_Atom_Position_Folded (AN, X, Y, Z);
+      end if;
+      
       Put_Atom_Position (AN, X, Y, Z);
       New_Line;
       
