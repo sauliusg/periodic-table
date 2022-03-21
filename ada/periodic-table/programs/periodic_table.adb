@@ -137,6 +137,7 @@ procedure Periodic_Table is
    
    Delta_X : Long_Float := 8.0; -- In Angstroems
    Delta_Y : Long_Float := 8.0; -- In Angstroems
+   Delta_Z : Long_Float := 8.0; -- In Angstroems
    
    procedure Put_Atom_Position ( AN : Integer; X, Y, Z : Long_Float ) is
    begin
@@ -173,6 +174,7 @@ procedure Periodic_Table is
       Lantanoid_Shift : constant Integer := 1;
       Transition_Shift : constant Integer := 10;
       Main_Shift : constant Integer := 5;
+      Lantanoid_Period : constant Integer := 14;
       
       Total_Shift : Integer;
       Row_Start_Offset : Integer;
@@ -181,7 +183,7 @@ procedure Periodic_Table is
       Z := 0.0;
       
       if AN = 1 then
-         X := Delta_X; Y := -Delta_Y;         
+         X := Delta_X; Y := -Delta_Y;
       elsif AN = 2 then
          Total_Shift := Lantanoid_Shift + Transition_Shift + Main_Shift + 3;
          X := Long_Float (Total_Shift) * Delta_X; Y := -Delta_Y;
@@ -205,10 +207,32 @@ procedure Periodic_Table is
             X := Long_Float (Row_Start_Offset + Total_Shift) * Delta_X;
          end if;
          Y := Long_Float ((AN - 19) / Row_Length + 2) * Delta_Y;
+      elsif AN in 55..118 then
+         Total_Shift := Lantanoid_Shift + 1;
+         Row_Length := Period_4_5_Row_Length + Lantanoid_Period;
+         Row_Start_Offset := (AN - 55) mod Row_Length;
+         
+         if Row_Start_Offset in 0..1 then
+            X := Long_Float (Row_Start_Offset + 1) * Delta_X;
+         elsif AN in 57..70 or else AN in 89..102 then
+            X := 3.0 * Delta_X;
+         else
+            X := Long_Float (Row_Start_Offset - Lantanoid_Period + Total_Shift)
+              * Delta_X;
+         end if;
+         
+         Y := Long_Float ((AN - 55) / Row_Length + 4) * Delta_Y;
+         
+         if AN in 57..70 then
+            Z := Long_Float ((AN - 57) mod Lantanoid_Period) * Delta_Z;
+         elsif AN in 89..102 then
+            Z := Long_Float ((AN - 89) mod Lantanoid_Period) * Delta_Z;
+         end if;
+   
       else
          Row_Length := Period_4_5_Row_Length;
-         X := Long_Float (((AN - 54) mod Row_Length) + 1) * Delta_X;
-         Y := Long_Float ((AN - 54) / Row_Length + 5) * Delta_Y;
+         X := Long_Float (((AN - 118) mod Row_Length) + 1) * Delta_X;
+         Y := Long_Float ((AN - 118) / Row_Length + 5) * Delta_Y;
       end if;
    end;
    
