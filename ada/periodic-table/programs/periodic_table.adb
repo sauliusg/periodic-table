@@ -46,7 +46,11 @@ procedure Periodic_Table is
       New_Line;
       P("USAGE:");
       P("    " & Command_Name & " --options");
+      P("    " & Command_Name & " --options 109");
       P("    " & Command_Name & " --options > out.xyz");
+      New_Line;
+      P("The optional positional argument (109 in the example) specifies the");
+      P("atomic number of the last element to be displayed.");
       New_Line;
       P("OPTIONS:");
       P("    -f, --float-format 2,14,3       Specify format for floating point output");
