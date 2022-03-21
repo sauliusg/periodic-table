@@ -27,7 +27,12 @@ procedure Periodic_Table is
    HELP_PRINTED : exception;
    VERSION_PRINTED : exception;
    
-   Max_Atoms : Integer := 118; -- The number of chemical elements know to-date.
+   -- The number of chemical elements know to-date:
+   Max_Atoms : constant Integer := 118;
+   
+   -- The number of chemical elements to display by default, selected
+   --  from what JMol can currently display:
+   Display_Atoms : Integer := 109;
    
    procedure Print_Help is
       procedure P( S : String ) renames Put_Line;
@@ -130,11 +135,11 @@ begin
       Argument : String := Get_Argument;
    begin
       if Argument /= "" then
-         Max_Atoms := Integer'Value (Argument);
+         Display_Atoms := Integer'Value (Argument);
       end if;
    end;
    
-   Put (Max_Atoms, Width => 1);
+   Put (Display_Atoms, Width => 1);
    New_Line;
    Put ("Mendeleev's Periodic Table of Elements / ");
    Put ("Периодическая таблица Менделеева");
@@ -143,7 +148,7 @@ begin
    -- AN -- Atomic Number
    Z := 0.0;
    Y := 0.0;
-   for AN in 1..Max_Atoms loop
+   for AN in 1..Display_Atoms loop
       
       Put (AN, Width => 1);
       if AN'Image'Last < 3 then
