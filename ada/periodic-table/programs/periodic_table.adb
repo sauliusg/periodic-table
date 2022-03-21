@@ -34,7 +34,8 @@ procedure Periodic_Table is
    --  from what JMol can currently display:
    Display_Atoms : Integer := 109;
    
-   Display_Table_Linear : Boolean := False;
+   Display_Table_Linear : Boolean := False;   
+   Rotate : Boolean := False;
    
    procedure Print_Help is
       procedure P( S : String ) renames Put_Line;
@@ -60,6 +61,8 @@ procedure Periodic_Table is
       New_Line;
       P("    --linear                        Display all atoms in one line.");
       P("    --folded                        Display atoms in a folded, tabular for (default).");
+      P("    --rotate                        Rotate the image 180 around X for Rasmol.");
+      P("    --no-rotate                     Do not rotate the image (for JMol, default).");
       New_Line;
       P("    -H, --human-readable            Use format 8,6,0 for better human readability");
       P("    -M, --machine-readable          Use format 2,14,3 to maintain precision");
@@ -84,12 +87,16 @@ procedure Periodic_Table is
         "-machi -mach -mac -ma -m ";
       Version_Option : String := "-version -versio -versi -vers -ver -ve -v ";
       Linear_Option : String := "-linear -linea -line -lin -li -l ";
-      Folded_Option : String := "-folded -folde -fold -fol -fo -f";
+      Folded_Option : String := "-folded -folde -fold -fol -fo -f ";
+      Rotate_Option : String := "-rotate -rotat -rota -rot -ro -r ";
+      No_Rotate_Option : String := "-no-rotate -no-rotat -no-rota " &
+        "-no-rot -no-ro -no-r -no -n";
    begin
       loop
          case Getopt (Help_Option & Float_Format_Option &
                         Human_Readable_Option & Machine_Readable_Option &
-                        Version_Option & Linear_Option & Folded_Option) is
+                        Version_Option & Linear_Option & Folded_Option &
+                        Rotate_Option & No_Rotate_Option) is
             when 'f' =>
                Parse_Float_Format (Parameter, Integer_Size, 
                                    Fraction_Size, Exponent_Size);
@@ -119,6 +126,10 @@ procedure Periodic_Table is
                   Display_Table_Linear := True;
                elsif Index("-folded", Full_Switch) = 1 then
                   Display_Table_Linear := False;
+               elsif Index("-rotate", Full_Switch) = 1 then
+                  Rotate := True;
+               elsif Index("-no-rotate", Full_Switch) = 1 then
+                  Rotate := False;
                elsif Index("-version", Full_Switch) = 1 then
                   Put_Line (Command_Name & " " & 
                               Program_Id (2..Program_Id'Last-1));
@@ -267,7 +278,12 @@ begin
          Select_Atom_Position_Folded (AN, X, Y, Z);
       end if;
       
-      Put_Atom_Position (AN, X, -Y, -Z);
+      if Rotate then
+         Put_Atom_Position (AN, X, Y, Z);
+      else
+         Put_Atom_Position (AN, X, -Y, -Z);
+      end if;
+      
       New_Line;
       
    end loop;
