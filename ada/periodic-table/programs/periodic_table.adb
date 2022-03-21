@@ -165,12 +165,17 @@ procedure Periodic_Table is
    
    procedure Select_Atom_Position_Folded ( AN : in Integer;
                                            X, Y, Z : out Long_Float ) is
-      Row_Length : constant Integer := 8;
+      Period_2_3_Row_Length : constant Integer := 8;
+      Period_4_5_Row_Length : constant Integer := 18;
+      
+      Row_Length : Integer;
+      
       Lantanoid_Shift : constant Integer := 1;
       Transition_Shift : constant Integer := 10;
       Main_Shift : constant Integer := 5;
       
       Total_Shift : Integer;
+      Row_Start_Offset : Integer;
    begin
       
       Z := 0.0;
@@ -178,20 +183,32 @@ procedure Periodic_Table is
       if AN = 1 then
          X := Delta_X; Y := -Delta_Y;         
       elsif AN = 2 then
-         Total_Shift := Lantanoid_Shift + Transition_Shift + Main_Shift;
+         Total_Shift := Lantanoid_Shift + Transition_Shift + Main_Shift + 3;
          X := Long_Float (Total_Shift) * Delta_X; Y := -Delta_Y;
       elsif AN in 3..18 then
-         Total_Shift := Lantanoid_Shift + Transition_Shift - 2;
-         if (AN - 3) mod Row_Length = 0 or else 
-           (AN - 3) mod Row_Length = 1 then
-            X := Delta_X;
+         Total_Shift := Lantanoid_Shift + Transition_Shift + 1;
+         Row_Length := Period_2_3_Row_Length;
+         Row_Start_Offset := (AN - 3) mod Row_Length;
+         if Row_Start_Offset in 0..1 then
+            X := Long_Float (Row_Start_Offset + 1) * Delta_X;
          else
-            X := Long_Float ((AN - 3) mod Row_Length + Total_Shift) * Delta_X;
+            X := Long_Float (Row_Start_Offset + Total_Shift) * Delta_X;
          end if;
          Y := Long_Float ((AN - 3) / Row_Length) * Delta_Y;
-      else
-         X := Long_Float (((AN - 19) mod Row_Length) + 1) * Delta_X;
+      elsif AN in 19..54 then
+         Total_Shift := Lantanoid_Shift + 1;
+         Row_Length := Period_4_5_Row_Length;
+         Row_Start_Offset := (AN - 19) mod Row_Length;
+         if Row_Start_Offset in 0..1 then
+            X := Long_Float (Row_Start_Offset + 1) * Delta_X;
+         else
+            X := Long_Float (Row_Start_Offset + Total_Shift) * Delta_X;
+         end if;
          Y := Long_Float ((AN - 19) / Row_Length + 2) * Delta_Y;
+      else
+         Row_Length := Period_4_5_Row_Length;
+         X := Long_Float (((AN - 54) mod Row_Length) + 1) * Delta_X;
+         Y := Long_Float ((AN - 54) / Row_Length + 5) * Delta_Y;
       end if;
    end;
    
