@@ -157,8 +157,8 @@ procedure Periodic_Table is
    procedure Put_Atom_Position ( AN : Integer; X, Y, Z : Long_Float ) is
    begin
       Put (AN, Width => 1);
-      if AN'Image'Last < 3 then
-         Put ((3 - AN'Image'Last) * " "); -- Pad with spaces on the right.
+      if AN'Image'Last < 4 then
+         Put ((4 - AN'Image'Last) * " "); -- Pad with spaces on the right.
       end if;
       
       Put (" ");
