@@ -75,12 +75,14 @@ procedure Periodic_Table is
         "-machine-readable -machine-readabl -machine-readab -machine-reada " &
         "-machine-read -machine-rea -machine-re -machine-r -machine -machin " &
         "-machi -mach -mac -ma -m ";
-      Version_Option : String := "-version -versio -versi -vers -ver -ve -v";
+      Version_Option : String := "-version -versio -versi -vers -ver -ve -v ";
+      Linear_Option : String := "-linear -linea -line -lin -li -l ";
+      Folded_Option : String := "-folded -folde -fold -fol -fo -f";
    begin
       loop
          case Getopt (Help_Option & Float_Format_Option &
                         Human_Readable_Option & Machine_Readable_Option &
-                        Version_Option) is
+                        Version_Option & Linear_Option & Folded_Option) is
             when 'f' =>
                Parse_Float_Format (Parameter, Integer_Size, 
                                    Fraction_Size, Exponent_Size);
@@ -106,6 +108,10 @@ procedure Periodic_Table is
                   Integer_Size := 2;
                   Fraction_Size := 14;
                   Exponent_Size := 3;
+               elsif Index("-linear", Full_Switch) = 1 then
+                  Display_Table_Linear := True;
+               elsif Index("-folded", Full_Switch) = 1 then
+                  Display_Table_Linear := False;
                elsif Index("-version", Full_Switch) = 1 then
                   Put_Line (Command_Name & " " & 
                               Program_Id (2..Program_Id'Last-1));
@@ -156,9 +162,10 @@ procedure Periodic_Table is
    
    procedure Select_Atom_Position_Folded ( AN : in Integer;
                                            X, Y, Z : out Long_Float ) is
+      Row_Length : constant Integer := 8;
    begin
-      X := Long_Float (AN) * Delta_X;
-      Y := 0.0;
+      X := Long_Float (((AN - 1) mod Row_Length) + 1) * Delta_X;
+      Y := Long_Float ((AN - 1) / Row_Length) * Delta_Y;
       Z := 0.0;
    end;
    
