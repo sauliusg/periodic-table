@@ -1,0 +1,2 @@
+# 2022-03-21 16:49:13 EET
+tests/outputs/periodic_table_001.diff: bin/periodic_table
