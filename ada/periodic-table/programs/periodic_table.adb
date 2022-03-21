@@ -119,8 +119,8 @@ procedure Periodic_Table is
    
    X, Y, Z : Long_Float;
    
-   Delta_X : Long_Float := 4.0; -- In Angstroems
-   Delta_Y : Long_Float := 4.0; -- In Angstroems
+   Delta_X : Long_Float := 6.0; -- In Angstroems
+   Delta_Y : Long_Float := 6.0; -- In Angstroems
    
 begin
    
